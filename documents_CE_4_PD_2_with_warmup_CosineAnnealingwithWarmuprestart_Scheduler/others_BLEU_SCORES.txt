@@ -1,0 +1,51 @@
+encoder = ConformerEncoder(num_layers=4, d_model=512, d_ff=1024, num_heads=4, kernel_size=31, dropout=0.4, input_dim=512)
+phoneme_decoder = PhonemeDecoder(vocab_size=500, d_model=512, hidden_size=512, num_layers=2, dropout=0.4) GRU
+cross_attention = MultiHeadAttention(d_model=512, num_heads=4, dropout=0.4, use_positional_encoding=False)
+synthesizer = Synthesizer(d_model=512, rnn_dim=512, vocab_size=500   # Yoruba unit vocabulary size) LSTM
+optimizer = optim.Adam(model.parameters(), lr=1e-4) with a CosineAnnealingWithWarmrestart scheduler, incorporating an initial warmup of lr from 1% of lr upto the set lr for first 2 epochs.
+loss_fn = nn.CrossEntropyLoss(ignore_index=pad_token, label_smoothing=0.1)
+1680/420 datasplit, seq_len = 600
+
+============================================================================================================================
+472: Ní àfikún, ìwádìí ìfarahàn àwọn ìròyìn, pẹ̀lú ìwọ̀n àpẹẹrẹ ti n  je ẹgbẹ̀rin ati mẹ̀talélàádọ́rùn-ún, kéré ju àwọn ìwádìí mìíràn nínú ìwádìí yìí lọ. 
+ASR @epoch22: ní àfikò, ìwádìí ìfọ̀ràn àwọn ìròyìn pẹ̀lú àwọn apẹ̀rẹ̀ tí jẹ́ ẹgbẹ̀rẹ̀ àti bàtà nílá àjọkẹ̀rẹ̀ jù àwọn ìwádìí mìíràn ní ìwádìí yìí.̩
+
+Unnormalised
+Ní àfikún, ìwádìí ìfarahàn àwọn ìròyìn, pẹ̀lú ìwọ̀n àpẹẹrẹ ti n  je ẹgbẹ̀rin ati mẹ̀talélàádọ́rùn-ún, kéré ju àwọn ìwádìí mìíràn nínú ìwádìí yìí lọ.̩̀
+ní àfikò, ìwádìí ìfọ̀ràn àwọn ìròyìn pẹ̀lú àwọn apẹ̀rẹ̀ tí jẹ́ ẹgbẹ̀rẹ̀ àti bàtà nílá àjọkẹ̀rẹ̀ jù àwọn ìwádìí mìíràn ní ìwádìí yìí.
+Normalised
+['ni afikun iwadii ifarahan awon iroyin pelu iwon apeere ti n  je egberin ati metalelaadorunun kere ju awon iwadii miiran ninu iwadii yii lo']
+['ni afiko iwadii iforan awon iroyin pelu awon apere ti je egbere ati bata nila ajokere ju awon iwadii miiran ni iwadii yii']
+BLEU score: 17.767151869436425
+WER: 0.4583333333333333
+CER: 0.21739130434782608
+
+ROUGE-L Results:
+LCS Length: 14
+LCS Sequence: ni iwadii awon iroyin pelu ti je ati ju awon iwadii miiran iwadii yii
+Recall: 0.5833333333333334
+Precision: 0.6086956521739131
+F-score: 0.5957446808510638
+============================================================================================================================
+443: Àwárí yìí bá àwọn ìwádìí mìíràn tí wọ́n ń ròyìn wíwọlé sí ITN káàkiri lẹ́yìn ìsapá ìṣàkóso ibà orílẹ̀-èdè tí ó lágbára [ẹ̀ẹ́dógún, ẹ̀rìndínlógún].
+ASR @epoch31: àwárì yìí gba àwọn ìwádìí mìíràn tí wọ́n rọ̀ yìí bí wọ́n ní ṣe àìtíyẹn káàkirùn bẹ́ẹ̀yìí ṣàpá àìṣàkóso ìgbà orílẹ̀-èdè tí ó lápára ẹ̀dọ́gbọ́n, ẹ̀ríndínlọ́gbọ̀n
+
+Unnormalised
+Àwárí yìí bá àwọn ìwádìí mìíràn tí wọ́n ń ròyìn wíwọlé sí ITN káàkiri lẹ́yìn ìsapá ìṣàkóso ibà orílẹ̀-èdè tí ó lágbára [ẹ̀ẹ́dógún, ẹ̀rìndínlógún]
+àwárì yìí gba àwọn ìwádìí mìíràn tí wọ́n rọ̀ yìí bí wọ́n ní ṣe àìtíyẹn káàkirùn bẹ́ẹ̀yìí ṣàpá àìṣàkóso ìgbà orílẹ̀-èdè tí ó lápára ẹ̀dọ́gbọ́n, ẹ̀ríndínlọ́gbọ̀n
+Normalised
+['awari yii ba awon iwadii miiran ti won n royin wiwole si itn kaakiri leyin isapa isakoso iba orileede ti o lagbara eedogun erindinlogun']
+['awari yii gba awon iwadii miiran ti won ro yii bi won ni se aitiyen kaakirun beeyii sapa aisakoso igba orileede ti o lapara edogbon erindinlogbon']
+BLEU score: 19.87622471711255
+WER: 0.6666666666666666
+CER: 0.22962962962962963
+
+ROUGE-L Results:
+LCS Length: 10
+LCS Sequence: awari yii awon iwadii miiran ti won orileede ti o
+Recall: 0.4166666666666667
+Precision: 0.38461538461538464
+F-score: 0.4
+--------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+============================================================================================================================
